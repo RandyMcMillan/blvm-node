@@ -135,7 +135,7 @@ jobs:
           df -h /
 
       - name: Disk check
-        uses: BTCDecoded/rust-ci/runner-disk-guard@main
+        uses: RandyMcMillan/rust-ci/runner-disk-guard@main
         with:
           show-df: false
 
@@ -165,7 +165,7 @@ jobs:
       
 
       - name: Strip [patch.crates-io] for crates.io-only CI
-        uses: BTCDecoded/rust-ci/strip-patch-crates-io@main
+        uses: RandyMcMillan/rust-ci/strip-patch-crates-io@main
       - name: Checkout blvm-protocol dependency (for cache key generation)
         uses: actions/checkout@v6
         with:
@@ -231,7 +231,7 @@ jobs:
         run: mkdir -p "${BLVM_BUILD_TARGET}" "${TMPDIR}"
 
       - name: Install Rust
-        uses: BTCDecoded/rust-ci/install-rust-toolchain@main
+        uses: RandyMcMillan/rust-ci/install-rust-toolchain@main
 
       - name: Configure linker (mold / lld / default)
         id: linker
@@ -271,7 +271,7 @@ jobs:
       
 
       - name: Strip [patch.crates-io] for crates.io-only CI
-        uses: BTCDecoded/rust-ci/strip-patch-crates-io@main
+        uses: RandyMcMillan/rust-ci/strip-patch-crates-io@main
 
       - name: Clean leftover path overrides
         run: |
@@ -305,13 +305,13 @@ jobs:
           echo "CARGO_HOME=${RUNNER_TEMP}/cargo" >> "$GITHUB_ENV"
 
       - name: Cache
-        uses: BTCDecoded/rust-ci/runner-cargo-cache@main
+        uses: RandyMcMillan/rust-ci/runner-cargo-cache@main
         with:
           operation: bind-env
           cache-key: ${{ needs.setup.outputs.cache-key }}
 
       - name: Restore Cargo cache
-        uses: BTCDecoded/rust-ci/runner-cargo-cache@main
+        uses: RandyMcMillan/rust-ci/runner-cargo-cache@main
         with:
           operation: restore
 
@@ -320,7 +320,7 @@ jobs:
         run: mkdir -p "${BLVM_BUILD_TARGET}" "${TMPDIR}"
 
       - name: Install Rust
-        uses: BTCDecoded/rust-ci/install-rust-toolchain@main
+        uses: RandyMcMillan/rust-ci/install-rust-toolchain@main
       
       - name: Install liblmdb (heed3 backend)
         run: |
@@ -375,13 +375,13 @@ jobs:
 
       - name: Save Cargo cache
         if: always()
-        uses: BTCDecoded/rust-ci/runner-cargo-cache@main
+        uses: RandyMcMillan/rust-ci/runner-cargo-cache@main
         with:
           operation: save
 
       - name: Prune old runner caches
         if: always()
-        uses: BTCDecoded/rust-ci/runner-cargo-cache@main
+        uses: RandyMcMillan/rust-ci/runner-cargo-cache@main
         with:
           operation: prune
 
@@ -404,7 +404,7 @@ jobs:
       
 
       - name: Strip [patch.crates-io] for crates.io-only CI
-        uses: BTCDecoded/rust-ci/strip-patch-crates-io@main
+        uses: RandyMcMillan/rust-ci/strip-patch-crates-io@main
 
       - name: Clean leftover path overrides
         run: |
@@ -435,14 +435,14 @@ jobs:
           echo "CARGO_HOME=${RUNNER_TEMP}/cargo" >> "$GITHUB_ENV"
 
       - name: Cache
-        uses: BTCDecoded/rust-ci/runner-cargo-cache@main
+        uses: RandyMcMillan/rust-ci/runner-cargo-cache@main
         with:
           operation: bind-env
           cache-key: ${{ needs.setup.outputs.cache-key }}
           include-target: false
 
       - name: Restore Cargo cache
-        uses: BTCDecoded/rust-ci/runner-cargo-cache@main
+        uses: RandyMcMillan/rust-ci/runner-cargo-cache@main
         with:
           operation: restore
 
@@ -451,7 +451,7 @@ jobs:
         run: mkdir -p "${BLVM_BUILD_TARGET}" "${TMPDIR}"
 
       - name: Install Rust
-        uses: BTCDecoded/rust-ci/install-rust-toolchain@main
+        uses: RandyMcMillan/rust-ci/install-rust-toolchain@main
       
       - name: Run clippy
         run: |
@@ -484,7 +484,7 @@ jobs:
       
 
       - name: Strip [patch.crates-io] for crates.io-only CI
-        uses: BTCDecoded/rust-ci/strip-patch-crates-io@main
+        uses: RandyMcMillan/rust-ci/strip-patch-crates-io@main
 
       - name: Clean leftover path overrides
         run: |
@@ -496,13 +496,13 @@ jobs:
           if [ -f ".cargo/config.toml" ]; then rm -f .cargo/config.toml; fi
 
       - name: Setup blvm-spec (Orange Paper for spec-lock verification)
-        uses: BTCDecoded/rust-ci/setup-blvm-spec@main
+        uses: RandyMcMillan/rust-ci/setup-blvm-spec@main
 
       - name: Ensure per-run target/tmp dirs on this runner
         run: mkdir -p "${BLVM_BUILD_TARGET}" "${TMPDIR}"
 
       - name: Install Rust
-        uses: BTCDecoded/rust-ci/install-rust-toolchain@main
+        uses: RandyMcMillan/rust-ci/install-rust-toolchain@main
 
       # Deps → install tool → crates.io consensus src → dual **verify** (+ attestation env) in one blocking step.
       - name: Verify
@@ -632,13 +632,13 @@ jobs:
       
 
       - name: Strip [patch.crates-io] for crates.io-only CI
-        uses: BTCDecoded/rust-ci/strip-patch-crates-io@main
+        uses: RandyMcMillan/rust-ci/strip-patch-crates-io@main
 
       - name: Ensure per-run target/tmp dirs on this runner
         run: mkdir -p "${BLVM_BUILD_TARGET}" "${TMPDIR}"
 
       - name: Install Rust
-        uses: BTCDecoded/rust-ci/install-rust-toolchain@main
+        uses: RandyMcMillan/rust-ci/install-rust-toolchain@main
       
       - name: Check formatting
         run: cargo fmt --all -- --check
@@ -662,7 +662,7 @@ jobs:
       
 
       - name: Strip [patch.crates-io] for crates.io-only CI
-        uses: BTCDecoded/rust-ci/strip-patch-crates-io@main
+        uses: RandyMcMillan/rust-ci/strip-patch-crates-io@main
 
       - name: Clean leftover path overrides
         run: |
@@ -693,14 +693,14 @@ jobs:
           echo "CARGO_HOME=${RUNNER_TEMP}/cargo" >> "$GITHUB_ENV"
 
       - name: Cache
-        uses: BTCDecoded/rust-ci/runner-cargo-cache@main
+        uses: RandyMcMillan/rust-ci/runner-cargo-cache@main
         with:
           operation: bind-env
           cache-key: ${{ needs.setup.outputs.cache-key }}
           include-target: false
 
       - name: Restore Cargo cache
-        uses: BTCDecoded/rust-ci/runner-cargo-cache@main
+        uses: RandyMcMillan/rust-ci/runner-cargo-cache@main
         with:
           operation: restore
 
@@ -709,7 +709,7 @@ jobs:
         run: mkdir -p "${BLVM_BUILD_TARGET}" "${TMPDIR}"
 
       - name: Install Rust
-        uses: BTCDecoded/rust-ci/install-rust-toolchain@main
+        uses: RandyMcMillan/rust-ci/install-rust-toolchain@main
       
       - name: Docs
         run: cargo doc --no-deps --document-private-items
@@ -733,7 +733,7 @@ jobs:
       
 
       - name: Strip [patch.crates-io] for crates.io-only CI
-        uses: BTCDecoded/rust-ci/strip-patch-crates-io@main
+        uses: RandyMcMillan/rust-ci/strip-patch-crates-io@main
 
       - name: Install OpenSSL development headers (openssl-sys / native-tls)
         run: |
@@ -750,7 +750,7 @@ jobs:
         run: mkdir -p "${BLVM_BUILD_TARGET}" "${TMPDIR}"
 
       - name: Install Rust
-        uses: BTCDecoded/rust-ci/install-rust-toolchain@main
+        uses: RandyMcMillan/rust-ci/install-rust-toolchain@main
       
       - name: Install cargo-audit
         run: |
@@ -785,16 +785,16 @@ jobs:
       - uses: actions/checkout@v6
 
       - name: Strip [patch.crates-io] for crates.io-only CI
-        uses: BTCDecoded/rust-ci/strip-patch-crates-io@main
+        uses: RandyMcMillan/rust-ci/strip-patch-crates-io@main
 
       - name: Cache
-        uses: BTCDecoded/rust-ci/runner-cargo-cache@main
+        uses: RandyMcMillan/rust-ci/runner-cargo-cache@main
         with:
           operation: bind-env
           cache-key: ${{ needs.setup.outputs.cache-key }}
 
       - name: Restore Cargo cache
-        uses: BTCDecoded/rust-ci/runner-cargo-cache@main
+        uses: RandyMcMillan/rust-ci/runner-cargo-cache@main
         with:
           operation: restore
 
@@ -803,7 +803,7 @@ jobs:
         run: mkdir -p "${BLVM_BUILD_TARGET}" "${TMPDIR}"
 
       - name: Install Rust
-        uses: BTCDecoded/rust-ci/install-rust-toolchain@main
+        uses: RandyMcMillan/rust-ci/install-rust-toolchain@main
 
       - name: Install nightly and cargo-fuzz
         run: |
@@ -894,7 +894,7 @@ jobs:
 
       - name: Save Cargo cache
         if: always()
-        uses: BTCDecoded/rust-ci/runner-cargo-cache@main
+        uses: RandyMcMillan/rust-ci/runner-cargo-cache@main
         with:
           operation: save
 
@@ -936,7 +936,7 @@ jobs:
       
 
       - name: Strip [patch.crates-io] for crates.io-only CI
-        uses: BTCDecoded/rust-ci/strip-patch-crates-io@main
+        uses: RandyMcMillan/rust-ci/strip-patch-crates-io@main
 
       - name: Clean leftover path overrides
         run: |
@@ -956,13 +956,13 @@ jobs:
           echo "CARGO_HOME=${RUNNER_TEMP}/cargo" >> "$GITHUB_ENV"
 
       - name: Cache
-        uses: BTCDecoded/rust-ci/runner-cargo-cache@main
+        uses: RandyMcMillan/rust-ci/runner-cargo-cache@main
         with:
           operation: bind-env
           cache-key: ${{ needs.setup.outputs.cache-key }}
 
       - name: Restore Cargo cache
-        uses: BTCDecoded/rust-ci/runner-cargo-cache@main
+        uses: RandyMcMillan/rust-ci/runner-cargo-cache@main
         with:
           operation: restore
 
@@ -971,7 +971,7 @@ jobs:
         run: mkdir -p "${BLVM_BUILD_TARGET}" "${TMPDIR}"
 
       - name: Install Rust
-        uses: BTCDecoded/rust-ci/install-rust-toolchain@main
+        uses: RandyMcMillan/rust-ci/install-rust-toolchain@main
       
       - name: Build
         run: |
@@ -1014,7 +1014,7 @@ jobs:
       
 
       - name: Strip [patch.crates-io] for crates.io-only CI
-        uses: BTCDecoded/rust-ci/strip-patch-crates-io@main
+        uses: RandyMcMillan/rust-ci/strip-patch-crates-io@main
 
       - name: Install OpenSSL development headers (openssl-sys / native-tls)
         run: |
@@ -1031,7 +1031,7 @@ jobs:
         run: mkdir -p "${BLVM_BUILD_TARGET}" "${TMPDIR}"
 
       - name: Install Rust
-        uses: BTCDecoded/rust-ci/install-rust-toolchain@main
+        uses: RandyMcMillan/rust-ci/install-rust-toolchain@main
       
       - name: Determine version
         id: version
@@ -1491,10 +1491,10 @@ jobs:
       - uses: actions/checkout@v6
 
       - name: Strip [patch.crates-io] for crates.io-only CI
-        uses: BTCDecoded/rust-ci/strip-patch-crates-io@main
+        uses: RandyMcMillan/rust-ci/strip-patch-crates-io@main
 
       - name: Install Rust
-        uses: BTCDecoded/rust-ci/install-rust-toolchain@main
+        uses: RandyMcMillan/rust-ci/install-rust-toolchain@main
 
       - name: Checkout develop scripts (blvm)
         uses: actions/checkout@v6
